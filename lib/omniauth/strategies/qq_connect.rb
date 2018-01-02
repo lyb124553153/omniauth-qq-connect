@@ -27,19 +27,23 @@ module OmniAuth
           # Response Example: "callback( {\"client_id\":\"11111\",\"openid\":\"000000FFFF\"} );\n"
           response = access_token.get('/oauth2.0/me')
           #TODO handle error case
-          matched = response.body.match(/"openid":"(?<openid>\w+)"/)
-          matched[:openid]
+          #matched = response.body.match(/"openid":"(?<openid>\w+)"/)
+          #matched[:openid]
+          p response.body
+          matched = response.body.match(/"unionid":"(?<unionid>\w+)"/)
+          p matched
+          matched[:unionid]
         end
       end
 
-      info do 
-        { 
+      info do
+        {
           :nickname => raw_info['nickname'],
           :name => raw_info['nickname'], # Since it is required, fill it with nickname
           :image => raw_info['figureurl_1'],
         }
       end
-      
+
       extra do
         {
           :raw_info => raw_info
